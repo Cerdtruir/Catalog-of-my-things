@@ -20,11 +20,11 @@ class App
       genre_array << game.genre.name unless genre_array.include?(game.genre.name)
     end
 
-    return if genre_array == []
-
+    puts
     genre_array.each do |genre|
-      puts genre.name
+      puts genre
     end
+    puts
   end
 
   def add_game
