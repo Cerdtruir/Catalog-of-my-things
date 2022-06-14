@@ -1,5 +1,5 @@
 class Genre
-  attr_reader :name
+  attr_reader :name, :items
 
   def initialize(name)
     @id = Time.now.to_i

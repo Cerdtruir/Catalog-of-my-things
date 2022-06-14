@@ -1,7 +1,7 @@
 require 'date'
 
 class Item
-  attr_reader :publish_date, :genre, :title
+  attr_reader :publish_date, :genre, :title, :archived
 
   def initialize(title, publish_date)
     @id = Time.now.to_i
