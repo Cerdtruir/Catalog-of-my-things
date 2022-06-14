@@ -6,12 +6,14 @@ class App
   end
 
   def list_all_games
+    puts
     @games.each do |game|
       print "Title: #{game.title}"
       print ", Published on: #{game.publish_date}"
       print ", Last played on: #{game.last_played_at_date}"
       print ", Multiplayer: #{game.multiplayer} \n"
     end
+    puts
   end
 
   def list_all_genres
