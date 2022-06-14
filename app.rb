@@ -1,8 +1,23 @@
 require_relative 'game'
+require_relative 'genre'
+require 'json'
 
 class App
   def initialize
     @games = []
+    load_saved_games
+  end
+
+  def load_saved_games
+    return unless File.exist?('games.json')
+
+    JSON.parse(File.read('games.json')).each do |game|
+      @games << Game.new(game[0], game[1], game[2], game[3])
+      if game[4]
+        genre = Genre.new(game[4])
+        genre.add_item(@games.last)
+      end
+    end
   end
 
   def list_all_games
@@ -44,6 +59,8 @@ class App
     multiplayer = true if gets.chomp.downcase == 'y'
 
     @games << Game.new(title, publish_date, multiplayer, last_played_at_date)
+    save_games
+  end
 
   def ask_for_date
     Date.strptime(gets.chomp, '%Y-%m-%d')
@@ -51,5 +68,14 @@ class App
     print 'Invalid date, please try again:'
     retry
   end
+
+  def save_games
+    save_games_array = []
+    @games.each do |game|
+      save_game = [game.title, game.publish_date, game.multiplayer, game.last_played_at_date]
+      save_game << game.genre.name if game.genre
+      save_games_array << save_game
+    end
+    File.write('games.json', save_games_array.to_json)
   end
 end
