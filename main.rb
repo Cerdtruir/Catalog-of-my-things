@@ -1,5 +1,7 @@
+require_relative 'app'
 
 def main
+  @app = App.new
   loop do
     menu_selection
   end
@@ -14,8 +16,11 @@ def menu_selection
   option = gets.chomp.to_i
   case option
   when 1
+    @app.list_all_games
   when 2
+    @app.list_all_genres
   when 3
+    @app.add_game
   when 4
     exit
   else
