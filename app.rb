@@ -19,11 +19,11 @@ class App
   def list_all_genres
     genre_array = []
     @games.each do |game|
-      genre_array << game.genre.name unless genre_array.include?(game.genre.name)
+      genre_array << game.genre.name if game.genre
     end
 
     puts
-    genre_array.each do |genre|
+    genre_array.uniq.each do |genre|
       puts genre
     end
     puts
