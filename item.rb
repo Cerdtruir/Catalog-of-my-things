@@ -9,6 +9,11 @@ class Item
     @publish_date = publish_date
   end
 
+  def genre=(genre)
+    @genre = genre
+    genre.add_item(self)
+  end
+
   def move_to_archive
     @archived = true if can_be_archived?
   end
