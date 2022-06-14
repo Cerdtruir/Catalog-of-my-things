@@ -33,26 +33,23 @@ class App
     print 'Enter the title of the game: '
     title = gets.chomp
 
-    begin
-      print 'Enter the date the game was published (yyyy-mm-dd): '
-      publish_date = Date.strptime(gets.chomp, '%Y-%m-%d')
-    rescue ArgumentError
-      puts 'Invalid input'
-      retry
-    end
+    print 'Enter the date the game was published (yyyy-mm-dd): '
+    publish_date = ask_for_date
 
-    begin
-      print 'When was the game last played? (yyyy-mm-dd): '
-      last_played_at_date = Date.strptime(gets.chomp, '%Y-%m-%d')
-    rescue ArgumentError
-      puts 'Invalid input'
-      retry
-    end
+    print 'Enter the date the game was last played (yyyy-mm-dd): '
+    last_played_at_date = ask_for_date
 
     multiplayer = false
     print 'Is the game multiplayer? (y/n): '
     multiplayer = true if gets.chomp.downcase == 'y'
 
     @games << Game.new(title, publish_date, multiplayer, last_played_at_date)
+
+  def ask_for_date
+    Date.strptime(gets.chomp, '%Y-%m-%d')
+  rescue ArgumentError
+    print 'Invalid date, please try again:'
+    retry
+  end
   end
 end
