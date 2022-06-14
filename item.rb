@@ -1,0 +1,21 @@
+require 'date'
+
+class Item
+  attr_reader :publish_date, :genre, :title
+
+  def initialize(title, publish_date)
+    @id = Time.now.to_i
+    @title = title
+    @publish_date = publish_date
+  end
+
+  def move_to_archive
+    @archived = true if can_be_archived?
+  end
+
+  private
+
+  def can_be_archived?
+    true if Date.today - @publish_date > 3650
+  end
+end
